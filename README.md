@@ -1,7 +1,7 @@
 # wait-free-value-store
 Wait free, SPMC value store in C++14
 
-More specifically, reads are wait free population obvlivious and writes are wait free bounded.
+More specifically, reads are wait free population oblivious and writes are wait free bounded.
 
 Depends on `boost::optional` and `boost::shared_array`.
 
