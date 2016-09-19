@@ -26,7 +26,7 @@ class reader_writer_store {
 
     // Lock to ensure single writer. Shouldn't ever actually function as a
     // lock, as long as API invariants are met. (I.e. single producer.)
-    std::atomic<bool> write_lock;
+    std::atomic<bool> write_lock{false};
 
 public:
     class reader_view {
@@ -84,7 +84,7 @@ public:
 
         // Lock, just in case. Shouldn't actually function as a lock.
         bool expected = false;
-        assert(write_lock.compare_exchange_weak(expected, true));
+        assert(write_lock.compare_exchange_strong(expected, true));
 
         if (gc_queue.size() <= num_readers.load()) {
             new_data = new T{std::move(data)};
